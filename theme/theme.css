@@ -45,3 +45,12 @@
 /* Starts the Oswald download while the widget waits for Open Sans (an invisible zero-width space in the loading
    message), so the header never paints before Oswald is ready. */
 .rw-host .rw-loading::after{content:"\200b";font-family:"FASTONE Oswald"}
+
+/* Dark tokens (widget .rw-dark / data-theme=dark — follows host page when theme=auto). */
+.rw-host.rw-dark,.rw-host[data-theme="dark"]{
+  --rw-ink:#e8e8e8;--rw-body:#c4c4c4;--rw-muted:#9a9a9a;
+  --rw-line:#333;--rw-line-strong:#4a4a4a;--rw-card:#1a1a1a;--rw-tint:#262626;
+  --rw-accent:#c4c4c4;--rw-accent-2:#e8e8e8;--rw-on-accent:#1a1a1a;
+  --rw-on-accent-soft:rgba(0,0,0,.22);--rw-star:#f5b301;--rw-star-off:#555;
+  --rw-nav-shadow:0 2px 12px rgba(0,0,0,.45);
+}
