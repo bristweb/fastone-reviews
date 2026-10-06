@@ -124,6 +124,7 @@ In Google Sites: *Insert → Embed → Embed code*, paste the snippet, *Next*, *
 | above 460px | full header, roomy cards |
 | about 420px (recommended) | one-row header without "Excellent" / "Based on"; the whole snippet shows on desktop widths |
 | 300-400px | smaller score, stars, and text; longer snippets scroll inside their card |
+| 140-240px | the header collapses to a rating chip ("4.8 ★ 13") in the bottom-right corner, and the cards go compact. Tested down to 140px tall |
 
 **Tested** in Chrome with a simulated Google Sites iframe (the sandbox above, and again without `allow-same-origin`, which gives the frame an opaque origin), at heights of 300, 400, 460 and 500px and widths of 400, 800 and 1200px. In every case nothing was cut off and the page inside the box never scrolled. The arrows paged through the cards, the font and data loaded, and clicking a card opened the review in a new tab. The same results held with *Embed → By URL* and `https://bristweb.github.io/fastone-reviews/embed.html?fixed-height=true&arrows=inside&overflow=hidden&hover-lift=false&focus-ring=inside`.
 
@@ -179,7 +180,7 @@ The platform tabs still let visitors switch filters. The header's rating and rev
 | `display.fixed_height`, `display.overflow`, `display.arrows`, `display.hover_lift`, `display.focus_ring`, `display.cards`, `display.padding` | site-wide defaults for the [fitting options](#per-embed-options): `false`, `"clip"`, `"outside"`, `true`, `"outside"`, `0`, `6`. A `data-` attribute or query parameter overrides them per embed |
 | `schema.enabled`, `schema.type`, `schema.max_reviews`, `schema.extra` | JSON-LD built into `data/reviews/schema.json` and injected into the page: on/off, the `@type` (here `Product`, see [Structured data](#structured-data-json-ld); `LocalBusiness` for a service business), how many Review items (`0` = all, the default), and extra properties merged into the entity (here `@id`, a product `name`, `description`, `brand`, `manufacturer`, `gtin12`, `category`, `image`, `sameAs`) |
 | `rating_labels` | words shown next to the score (`min` average → label) |
-| `strings` | every piece of visible or screen-reader text ("Write a review", its short form "Review" for narrow widths, "Based on", "View on {platform}", aria labels, …), with `{placeholders}` |
+| `strings` | every piece of visible or screen-reader text ("Write a review", its short form "Review" for narrow widths, the rating chip's screen-reader label, "Based on", "View on {platform}", aria labels, …), with `{placeholders}` |
 | `avatars.initials_palette`, `avatars.initials_text_color` | colors of the generated initials avatars (used by the import script) |
 
 ### Look and feel: `data/theme/theme.css`
@@ -445,6 +446,8 @@ With [`data-fixed-height`](#google-sites-and-other-fixed-height-boxes) the heade
 | ≤ 460px | "Excellent" and "Based on" hidden, tighter header and card padding |
 | ≤ 360px | also a smaller score, stars, button, tabs, avatars and review text |
 | ≤ 300px | tighter still: smaller score, card padding, avatars, review text and "View on" link |
+| ≤ 240px | **the header takes no height.** It collapses to a small rating chip ("4.8 ★ 13") in the bottom-right corner, sitting in the gap below the cards. Hovering the chip (mouse), tapping it (touch; tap again, tap elsewhere or press Esc to close), or tabbing into the header with the keyboard opens a slim bar beside it with the filter tabs (on wider boxes) and the "Write a review" button. **Cards go compact:** a small avatar, the name and the stars share one line; the date and "View on …" cue are hidden; the snippet is clamped to the whole lines that fit (with an ellipsis). The AI summary card gets a smaller label, and its text scrolls with a fade |
+| ≤ 180px | smaller avatar, name and text, tighter card padding and smaller arrows. At 140px tall, a card still shows the name, the stars and 4 lines of text |
 
 The carousel shows 4 cards above 1024px, 3 at ≤ 1024px, 2 at ≤ 760px, and one card (88% wide, swipeable, no arrows) at ≤ 575px.
 

@@ -115,7 +115,7 @@
    inside: header on top, the card track takes the remaining height, long text scrolls inside its card. The root
    becomes a size container so the header can also compact by available height. */
 .rw-host.rw-fixed-host{box-sizing:border-box}
-.rw-root.rw-fixed{height:100%;display:flex;flex-direction:column;container-type:size;overflow:hidden}
+.rw-root.rw-fixed{height:100%;display:flex;flex-direction:column;container-type:size;overflow:hidden;position:relative}
 .rw-fixed .rw-header{flex:none}
 .rw-fixed .rw-loading{margin:auto}
 .rw-fixed .rw-viewport{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
@@ -137,3 +137,55 @@
   .rw-fixed .rw-header{padding:6px 10px;margin-bottom:6px}.rw-fixed .rw-score{font-size:24px}.rw-fixed .rw-based{margin-top:0}
   .rw-fixed .rw-card{padding:10px 12px;gap:5px}.rw-fixed .rw-avatar{width:32px;height:32px}.rw-fixed .rw-card-top{gap:9px}
   .rw-fixed .rw-text{font-size:13.5px;line-height:1.45}.rw-fixed .rw-link{font-size:12.5px}}
+/* Rating chip: only used in very short fixed-height boxes (below); hidden everywhere else. */
+.rw-peek{display:none}
+/* Very short fixed-height boxes (<= 240px tall): the header takes no height. It collapses to a small rating chip
+   ("4.8 ★ 13") in the bottom-right corner, over the gap below the cards. Hovering the chip, tapping it, or moving
+   keyboard focus into the header opens a slim bar with the filter tabs and the review button. Cards go compact:
+   avatar, name and stars on one line, no date or "View on" cue, the snippet clamped to the lines that fit. */
+@container rw (max-height:240px){
+  .rw-root.rw-fixed .rw-header{position:absolute;right:0;bottom:0;left:auto;max-width:100%;z-index:5;margin:0;padding:2px;gap:6px;
+    flex-wrap:nowrap;justify-content:flex-end;align-items:flex-end;background:transparent;border-color:transparent;box-shadow:none;pointer-events:none;
+    transition:background-color .15s,border-color .15s,box-shadow .15s}
+  .rw-root.rw-fixed .rw-summary{display:none}
+  .rw-root.rw-fixed .rw-header>:not(.rw-peek){opacity:0;transition:opacity .15s}
+  .rw-root.rw-fixed .rw-header:has(:focus-visible),.rw-root.rw-fixed.rw-hdr-open .rw-header{
+    background:var(--rw-card,#fff);border-color:var(--rw-line,#e3e3e3);box-shadow:0 4px 16px rgba(0,0,0,.16);pointer-events:auto}
+  .rw-root.rw-fixed .rw-header:has(:focus-visible)>*,.rw-root.rw-fixed.rw-hdr-open .rw-header>*{opacity:1}
+  .rw-root.rw-fixed .rw-write{padding:4px 11px;font-size:12px;line-height:1.2;align-self:flex-end}
+  .rw-root.rw-fixed .rw-tab{padding:2px 7px;font-size:12px}
+  .rw-root.rw-fixed .rw-peek{display:inline-flex;align-items:center;gap:3px;order:4;flex:none;pointer-events:auto;cursor:pointer;margin:0;
+    font:inherit;font-size:11.5px;font-weight:700;line-height:1;color:var(--rw-ink,#111);background:var(--rw-card,#fff);
+    border:1px solid var(--rw-line,#e3e3e3);border-radius:999px;padding:3px 7px;white-space:nowrap}
+  .rw-root.rw-fixed .rw-peek svg{width:11px;height:11px;fill:var(--rw-star,#f5b301)}
+  .rw-root.rw-fixed .rw-peek em{font-style:normal;font-weight:400;color:var(--rw-muted,#888)}
+  .rw-root.rw-fixed .rw-peek:focus-visible{outline:2px solid var(--rw-accent,#333);outline-offset:-3px}
+  .rw-root.rw-fixed .rw-viewport{margin:0}
+  .rw-root.rw-fixed.rw-layout-carousel .rw-track{padding:2px 2px 4px}
+  .rw-root.rw-fixed .rw-nav{width:28px;height:28px;font-size:20px;padding:0 0 2px}
+  .rw-root.rw-fixed .rw-card:not(.rw-ai){display:grid;grid-template-columns:auto minmax(0,auto) auto 1fr auto;grid-template-rows:auto minmax(0,1fr);
+    align-items:center;column-gap:6px;row-gap:4px;padding:7px 10px 10px}
+  .rw-root.rw-fixed .rw-card-top{display:contents}
+  .rw-root.rw-fixed .rw-avatar{grid-area:1/1;width:22px;height:22px}
+  .rw-root.rw-fixed .rw-who{grid-area:1/2}
+  .rw-root.rw-fixed .rw-name{font-size:13px}
+  .rw-root.rw-fixed .rw-who time,.rw-root.rw-fixed .rw-card .rw-link{display:none}
+  .rw-root.rw-fixed .rw-card>.rw-stars,.rw-root.rw-fixed .rw-card>.rw-rec{grid-area:1/3}
+  .rw-root.rw-fixed .rw-card>.rw-stars i{width:12px;height:12px}
+  .rw-root.rw-fixed .rw-card>.rw-rec{font-size:12px}
+  .rw-root.rw-fixed .rw-platform{grid-area:1/5;width:16px;height:16px}
+  .rw-root.rw-fixed .rw-card .rw-text{grid-area:2/1/3/-1;align-self:stretch;min-height:0;display:-webkit-box;-webkit-box-orient:vertical;
+    overflow:hidden;font-size:13px;line-height:1.4}
+  .rw-root.rw-fixed .rw-ai{padding:7px 10px 10px;gap:4px}
+  .rw-root.rw-fixed .rw-ai-top{font-size:11px;gap:5px}
+  .rw-root.rw-fixed .rw-ai-icon{width:16px;height:16px}.rw-root.rw-fixed .rw-ai-icon svg{width:10px;height:10px}
+  .rw-root.rw-fixed .rw-ai-text{font-size:12.5px;line-height:1.4}}
+@container rw (max-height:180px){
+  .rw-root.rw-fixed .rw-card:not(.rw-ai),.rw-root.rw-fixed .rw-ai{padding:5px 9px 11px;row-gap:3px}
+  .rw-root.rw-fixed .rw-avatar{width:18px;height:18px}
+  .rw-root.rw-fixed .rw-name{font-size:12.5px}
+  .rw-root.rw-fixed .rw-card .rw-text,.rw-root.rw-fixed .rw-ai-text{font-size:12.5px;line-height:1.35}
+  .rw-root.rw-fixed .rw-nav{width:24px;height:24px;font-size:18px}}
+@media (hover:hover){@container rw (max-height:240px){
+  .rw-root.rw-fixed .rw-header:hover{background:var(--rw-card,#fff);border-color:var(--rw-line,#e3e3e3);box-shadow:0 4px 16px rgba(0,0,0,.16);pointer-events:auto}
+  .rw-root.rw-fixed .rw-header:hover>*{opacity:1}}}

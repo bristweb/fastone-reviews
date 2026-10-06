@@ -46,7 +46,7 @@
     based_on: 'Based on ', review_one: 'review', review_many: 'reviews', on_platform: ' on {platform}',
     stars_aria: '{rating} out of 5 stars', recommends: 'Recommends', view_on: 'View on {platform}',
     card_aria: "Read {name}'s review on {platform} (opens in a new tab)", anonymous: 'Anonymous',
-    previous: 'Previous reviews', next: 'Next reviews', ai_summary: 'AI summary',
+    previous: 'Previous reviews', next: 'Next reviews', rating_chip_aria: '{rating} out of 5 stars, {count} reviews. Show filters and review button', ai_summary: 'AI summary',
     ai_summary_aria: 'AI-generated summary of {count} reviews',
   };
   const DISPLAY = {
@@ -330,6 +330,7 @@
         </div>
         <a class="rw-write" href="${esc(write)}" target="_blank" rel="noopener" aria-label="${esc(S.write_review)}"><span class="rw-write-long">${esc(S.write_review)}</span><span class="rw-write-short">${esc(S.write_review_short)}</span></a>
         ${tabs}
+        <button class="rw-peek" type="button" aria-expanded="${el.classList.contains('rw-hdr-open')}" aria-label="${esc(fill(S.rating_chip_aria, { rating: avg.toFixed(1), count: pool.length }))}">${avg.toFixed(1)}${STAR}<em>${pool.length}</em></button>
       </header>`;
 
       // AI summary: first card in "All reviews" only; not a link, not counted, not in the JSON-LD.
@@ -367,6 +368,8 @@
 
       useFallbackIcons(el);
       fitSummary();
+      clampText();
+      el.querySelector('.rw-peek').addEventListener('click', () => setHeaderOpen(!el.classList.contains('rw-hdr-open')));
       el.querySelectorAll('.rw-tab').forEach(b => b.addEventListener('click', () => { active = b.dataset.p; render(); }));
       const track = el.querySelector('.rw-track');
       const step = dir => track.scrollBy({ left: dir * track.clientWidth * 0.9, behavior: 'smooth' });
@@ -382,6 +385,27 @@
       upd();
       if (!cfg.fixed) notifyHeight();
     }
+    // Very short fixed-height boxes: the header is a rating chip that opens a slim bar (CSS); tap/click toggles it.
+    function setHeaderOpen(open) {
+      el.classList.toggle('rw-hdr-open', open);
+      const b = el.querySelector('.rw-peek');
+      if (b) b.setAttribute('aria-expanded', String(open));
+    }
+    if (cfg.fixed) {
+      document.addEventListener('click', e => { if (!el.contains(e.target)) setHeaderOpen(false); });
+      el.addEventListener('keydown', e => { if (e.key === 'Escape' && el.classList.contains('rw-hdr-open')) { setHeaderOpen(false); el.querySelector('.rw-peek').focus(); } });
+    }
+    // Compact cards (very short fixed-height boxes) clamp each snippet to the whole lines that fit its card.
+    function clampText() {
+      if (!cfg.fixed) return;
+      const chip = el.querySelector('.rw-peek');
+      const compact = chip && getComputedStyle(chip).display !== 'none';
+      el.querySelectorAll('.rw-card .rw-text').forEach(t => {
+        if (!compact) return t.style.removeProperty('-webkit-line-clamp');
+        const lh = parseFloat(getComputedStyle(t).lineHeight) || 18;
+        t.style.setProperty('-webkit-line-clamp', String(Math.max(1, Math.floor((t.clientHeight + 1) / lh))));
+      });
+    }
     // If the summary text is taller than its card (narrow cards), it scrolls; fade the bottom edge to show that.
     function fitSummary() {
       const t = el.querySelector('.rw-ai-text');
@@ -390,7 +414,7 @@
     el.addEventListener('scroll', e => { if (e.target.classList && e.target.classList.contains('rw-ai-text')) fitSummary(); }, { capture: true, passive: true });
     render();
     reveal();
-    new ResizeObserver(() => { fitSummary(); if (!cfg.fixed) notifyHeight(); }).observe(el);
+    new ResizeObserver(() => { fitSummary(); clampText(); if (!cfg.fixed) notifyHeight(); }).observe(el);
   }
 
   // When rendered inside an iframe (embed.html), tell the parent page our height.
