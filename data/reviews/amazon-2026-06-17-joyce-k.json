@@ -1,0 +1,28 @@
+{
+  "id": "amazon-10526ad2672f",
+  "platform": "amazon",
+  "platform_review_id": "R249GKQ89UH5LN",
+  "reviewer_name": "Joyce Koch",
+  "reviewer_profile_url": "https://www.amazon.com/gp/profile/amzn1.account.AGDXARVGSF36D2RM433Z3OT4DXRA",
+  "reviewer_image": "data/images/reviewers/amazon-2026-06-17-joyce-k.svg",
+  "reviewer_image_source_url": null,
+  "rating": 4,
+  "text": "What I like - great pigment density that creates a very smooth presentation on canvas. Color selection is problematic as you are paying for many dark tones you are less likely to use - With the exception of some shadows I emptied the first three tubes without even opening the last two darker tubes. Next time I will buy single tubes as I realize now I was paying for tubes I will be unlikely to use.",
+  "date": "2026-06-17T12:00:00Z",
+  "review_url": "https://www.amazon.com/gp/customer-reviews/R249GKQ89UH5LN",
+  "owner_reply": null,
+  "collected_at": "2026-10-06T02:30:35Z",
+  "source": "apify",
+  "title": "Good paint but color range to broad",
+  "item_reviewed": {
+    "title": "FASTONE Acrylic Skin Tone Paint Set - 6 Pack Pro Premades",
+    "asin": "B0D2LXC354",
+    "variant_asin": "B0D2LXC354",
+    "variant": null,
+    "url": "https://www.amazon.com/dp/B0D2LXC354"
+  },
+  "verified_purchase": true,
+  "reviewed_in": "Reviewed in the United States on June 17, 2026",
+  "country": "United States",
+  "amazon_user_id": "AGDXARVGSF36D2RM433Z3OT4DXRA"
+}

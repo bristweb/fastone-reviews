@@ -1,0 +1,29 @@
+{
+  "id": "amazon-7436f2ecedad",
+  "platform": "amazon",
+  "platform_review_id": "R2BG24O4W4NS60",
+  "reviewer_name": "Paige Reesor",
+  "reviewer_profile_url": "https://www.amazon.com/gp/profile/amzn1.account.AF2OJ74VL7UD3IXN7YX7EGKICXIA",
+  "reviewer_image": "data/images/reviewers/amazon-2024-08-12-paige-r.svg",
+  "reviewer_image_source_url": null,
+  "rating": 4,
+  "text": "Loved trying out these skin tone set. I am a live wedding painter and this does help speed up my process. Already having set colors ready to go makes my process much faster. I still mix some other colors to help enrich my palette more.",
+  "date": "2024-08-12T12:00:00Z",
+  "review_url": "https://www.amazon.com/gp/customer-reviews/R2BG24O4W4NS60",
+  "owner_reply": null,
+  "collected_at": "2026-10-06T02:30:35Z",
+  "source": "apify",
+  "title": "Great skin tones for the base colors",
+  "item_reviewed": {
+    "title": "FASTONE Acrylic Skin Tone Paint Set - 6 Pack Pro Premades",
+    "asin": "B0D2LXC354",
+    "variant_asin": "B0D2LXC354",
+    "variant": null,
+    "url": "https://www.amazon.com/dp/B0D2LXC354"
+  },
+  "verified_purchase": true,
+  "helpful_votes": 3,
+  "reviewed_in": "Reviewed in the United States on August 12, 2024",
+  "country": "United States",
+  "amazon_user_id": "AF2OJ74VL7UD3IXN7YX7EGKICXIA"
+}

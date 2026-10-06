@@ -1,0 +1,116 @@
+{
+  "business": {
+    "name": "FASTONE Pro Paint",
+    "website": "https://www.fastonepro.com/"
+  },
+  "default_write_platform": "amazon",
+  "platforms": {
+    "amazon": {
+      "name": "Amazon",
+      "icon": "data/icons/amazon.svg",
+      "write_url": "https://www.amazon.com/review/create-review?asin=B0D2LXC354",
+      "page_url": "https://www.amazon.com/product-reviews/B0D2LXC354",
+      "card_link": "review"
+    },
+    "etsy": {
+      "name": "Etsy",
+      "icon": "data/icons/etsy.svg",
+      "write_url": "https://www.etsy.com/your/purchases",
+      "page_url": "https://www.etsy.com/listing/1872977093#reviews",
+      "card_link": "review"
+    }
+  },
+  "display": {
+    "layout": "carousel",
+    "snippet_chars": 160,
+    "abbreviate_last_names": true,
+    "max_same_platform_run": 2,
+    "diversity_window_days": 548,
+    "date_locale": "en-US",
+    "date_options": {
+      "year": "numeric",
+      "month": "short",
+      "day": "numeric"
+    },
+    "font_timeout_ms": 1200,
+    "show_rating_only_reviews": false,
+    "show_summary": true
+  },
+  "schema": {
+    "enabled": true,
+    "type": "Product",
+    "max_reviews": 0,
+    "extra": {
+      "@id": "https://www.fastonepro.com/#product",
+      "name": "FASTONE® Pro Premades Skin Tone Paint Set (6 pack)",
+      "description": "Six professional grade heavy body acrylic paint colors in skin tones, a starting point for skin tones from light to dark. Pack of six individually colored tubes, 1.3 oz / 36 g each, hand crafted in small batches by Knoxville artist Heather Wolfe.",
+      "brand": {
+        "@type": "Brand",
+        "name": "FASTONE"
+      },
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "Heather Wolfe Art",
+        "url": "https://heatherwolfeart.com/"
+      },
+      "gtin12": "726872046914",
+      "category": "Acrylic paint",
+      "image": "https://i.etsystatic.com/5453283/r/il/4656a3/6685968071/il_fullxfull.6685968071_559c.jpg",
+      "sameAs": [
+        "https://www.amazon.com/dp/B0D2LXC354",
+        "https://www.etsy.com/listing/1872977093"
+      ]
+    }
+  },
+  "rating_labels": [
+    {
+      "min": 4.75,
+      "label": "Excellent"
+    },
+    {
+      "min": 4.25,
+      "label": "Great"
+    },
+    {
+      "min": 3.5,
+      "label": "Good"
+    },
+    {
+      "min": 0,
+      "label": "Reviews"
+    }
+  ],
+  "strings": {
+    "loading": "Loading reviews…",
+    "unavailable": "Reviews are unavailable right now.",
+    "tabs_aria": "Filter reviews by platform",
+    "tab_all": "All",
+    "tab_all_suffix": " reviews",
+    "tab_title": "{name}: {count} reviews",
+    "tab_aria": "{name}, {count} reviews",
+    "write_review": "Write a review",
+    "based_on": "Based on ",
+    "review_one": "review",
+    "review_many": "reviews",
+    "on_platform": " on {platform}",
+    "stars_aria": "{rating} out of 5 stars",
+    "recommends": "Recommends",
+    "view_on": "View on {platform}",
+    "card_aria": "Read {name}'s review on {platform} (opens in a new tab)",
+    "anonymous": "Anonymous",
+    "previous": "Previous reviews",
+    "next": "Next reviews",
+    "ai_summary": "AI summary",
+    "ai_summary_aria": "AI-generated summary of {count} reviews"
+  },
+  "avatars": {
+    "initials_palette": [
+      "#1F1F1F",
+      "#424242",
+      "#5F6368",
+      "#2E2E2E",
+      "#555555"
+    ],
+    "initials_text_color": "#fff"
+  }
+}

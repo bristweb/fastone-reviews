@@ -1,0 +1,30 @@
+{
+  "id": "amazon-af350cfb7b90",
+  "platform": "amazon",
+  "platform_review_id": "R1RWAJC1W8NBQF",
+  "reviewer_name": "Daytona Strong",
+  "reviewer_profile_url": "https://www.amazon.com/gp/profile/amzn1.account.AGOU2KXYAY2NVJW7SY6S3ZBGB65A",
+  "reviewer_image": "data/images/reviewers/amazon-2024-09-27-daytona-s.svg",
+  "reviewer_image_source_url": null,
+  "rating": 5,
+  "text": "I'm glad to have these premixed skin tones on hand so I don’t have to spend time mixing them myself. They provide a solid starting point. While there's definitely an art to mixing skin tones using primary and secondary colors, having this set is convenient and is easy to customize.",
+  "date": "2024-09-27T12:00:00Z",
+  "review_url": "https://www.amazon.com/gp/customer-reviews/R1RWAJC1W8NBQF",
+  "owner_reply": null,
+  "collected_at": "2026-10-06T02:30:35Z",
+  "source": "apify",
+  "title": "Convenient Premixed Skin Tone Paints",
+  "item_reviewed": {
+    "title": "FASTONE Acrylic Skin Tone Paint Set - 6 Pack Pro Premades",
+    "asin": "B0D2LXC354",
+    "variant_asin": "B0D2LXC354",
+    "variant": null,
+    "url": "https://www.amazon.com/dp/B0D2LXC354"
+  },
+  "verified_purchase": true,
+  "amazon_vine": true,
+  "helpful_votes": 1,
+  "reviewed_in": "Reviewed in the United States on September 27, 2024",
+  "country": "United States",
+  "amazon_user_id": "AGOU2KXYAY2NVJW7SY6S3ZBGB65A"
+}

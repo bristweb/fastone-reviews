@@ -1,0 +1,9 @@
+{
+  "text": "Artists, many of them live wedding and event painters, say these premixed skin tones save mixing time and give a natural, true-to-life base for portraits. They praise the smooth, densely pigmented paint. A few still mix to customize, and one found the set heavy on dark tones.",
+  "generated_at": "2026-10-06T02:31:00Z",
+  "review_count": 13,
+  "reviews_with_text": 13,
+  "generated_by": "AI (Grok Bot), from the review texts in data/reviews/",
+  "sources": "12 Amazon reviews (B0D2LXC354) + 1 Etsy review (listing 1872977093)",
+  "notes": "Shown as the first card in 'All reviews', labeled 'AI summary'. Not a review: excluded from counts, ratings and the JSON-LD. Only state themes that appear in the stored reviews (time saving: Merlyn, Courtney, Daytona S., Hannah H., Paige R., AA, Hernando S.; live/wedding painters: Hannah H., Justin C., Paige R., AA, Hernando S., Paige M.; natural color: Isabel W., AA, Justin C.; smooth/pigmented/blends: Joyce K., Justin C., Joe, Hannah H.; still mixing: Daytona S., Paige R.; too many dark tones: Joyce K.). scripts/pull_reviews.py flags it SUMMARY STALE when review_count no longer matches."
+}
