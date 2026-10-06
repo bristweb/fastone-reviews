@@ -2,7 +2,7 @@
 """FASTONE Pro Paint: normalize raw scraper output into review records (reviews/<year>.json) in this repo.
 
 Usage (from the repo root; --data defaults to this repo):
-  python3 scripts/import_reviews.py --amazon .pull/amazon.json --etsy .pull/etsy.json --source apify
+  python3 scripts/import_reviews.py --amazon .pull/amazon.json --etsy .pull/etsy.json
 pull_reviews.py runs this for you; call it directly to import a file by hand or to --update existing records.
 
 Raw inputs:
@@ -10,7 +10,7 @@ Raw inputs:
   etsy     : Apify astravalabs/etsy-reviews-scraper dataset items (etsy.com itself is behind DataDome)
 
 A review is identified by (platform, platform_review_id). By default only NEW reviews are added; --update also
-refreshes existing ones (they keep collected_at, source, their avatar and a hand-set featured_on_website flag).
+refreshes existing ones (they keep collected_at, their avatar and a hand-set featured_on_website flag).
 EVERYTHING is stored: full reviewer name, full text, owner reply (text + date), reviewer profile URL, avatar source
 URL, individual review URL, plus platform extras. Abbreviating names and clipping text happens only in the widget.
 Each review goes into reviews/<year of its date>.json (an array, newest first). When a review starts a new year,
@@ -195,7 +195,6 @@ def main():
     ap.add_argument('--data', default=REPO, help='data repo checkout (default: this repo)')
     for p in ('amazon', 'etsy'):
         ap.add_argument('--' + p)
-    ap.add_argument('--source', default='direct', help="value for the `source` field (direct|apify)")
     ap.add_argument('--update', action='store_true',
                     help='also refresh reviews that already exist (default: add new reviews only)')
     a = ap.parse_args()
@@ -244,7 +243,6 @@ def main():
                 'review_url': r['url'],
                 'owner_reply': r['reply'],
                 'collected_at': old.get('collected_at') or NOW,
-                'source': old.get('source') or a.source,
             }
             if old:
                 rec['updated_at'] = NOW
