@@ -108,7 +108,6 @@
     "anonymous": "Anonymous",
     "previous": "Previous reviews",
     "next": "Next reviews",
-    "rating_chip_aria": "{rating} out of 5 stars, {count} reviews. Show filters and review button",
     "ai_summary": "AI summary",
     "ai_summary_aria": "AI-generated summary of {count} reviews"
   },
