@@ -179,7 +179,7 @@ The platform tabs still let visitors switch filters. The header's rating and rev
 | `display.fixed_height`, `display.overflow`, `display.arrows`, `display.hover_lift`, `display.focus_ring`, `display.cards`, `display.padding` | site-wide defaults for the [fitting options](#per-embed-options): `false`, `"clip"`, `"outside"`, `true`, `"outside"`, `0`, `6`. A `data-` attribute or query parameter overrides them per embed |
 | `schema.enabled`, `schema.type`, `schema.max_reviews`, `schema.extra` | JSON-LD built into `data/reviews/schema.json` and injected into the page: on/off, the `@type` (here `Product`, see [Structured data](#structured-data-json-ld); `LocalBusiness` for a service business), how many Review items (`0` = all, the default), and extra properties merged into the entity (here `@id`, a product `name`, `description`, `brand`, `manufacturer`, `gtin12`, `category`, `image`, `sameAs`) |
 | `rating_labels` | words shown next to the score (`min` average → label) |
-| `strings` | every piece of visible or screen-reader text ("Write a review", "Based on", "View on {platform}", aria labels, …), with `{placeholders}` |
+| `strings` | every piece of visible or screen-reader text ("Write a review", its short form "Review" for narrow widths, "Based on", "View on {platform}", aria labels, …), with `{placeholders}` |
 | `avatars.initials_palette`, `avatars.initials_text_color` | colors of the generated initials avatars (used by the import script) |
 
 ### Look and feel: `data/theme/theme.css`
@@ -435,18 +435,18 @@ One compact row: rating on the left, platform filter tabs in the middle, **Write
 | > 1020px | one row: score, "Excellent", stars, "Based on N reviews" · tabs with icon, name, and count · button |
 | ≤ 1020px | tabs collapse to icon and count (the name stays in `title` / `aria-label`) |
 | ≤ 720px | compact: "Excellent" and "Based on" hidden (shows score, stars, "N reviews"), tighter tabs and button |
-| ≤ 575px | two-row grid: rating above tabs on the left, button spanning both rows on the right |
-| ≤ 450px | the button text wraps onto two lines |
-| ≤ 380px | fully stacked, full-width button |
+| ≤ 575px | one row: the filter tabs are hidden (the cards show all reviews), the rating (score, stars, "N reviews") on the left, a compact button on the right |
+| ≤ 360px | the button reads "Review" (`strings.write_review_short`; its accessible name stays "Write a review"), slightly smaller score |
 
 With [`data-fixed-height`](#google-sites-and-other-fixed-height-boxes) the header also responds to the widget's height (the root becomes a `size` container):
 
 | Widget height | Header and cards |
 |---|---|
-| ≤ 460px | "Excellent" and "Based on" hidden, tighter header and card padding. In boxes ≤ 380px wide, the button stays beside the rating instead of dropping below the tabs |
+| ≤ 460px | "Excellent" and "Based on" hidden, tighter header and card padding |
 | ≤ 360px | also a smaller score, stars, button, tabs, avatars and review text |
+| ≤ 300px | tighter still: smaller score, card padding, avatars, review text and "View on" link |
 
-The carousel shows 4 cards above 1024px, 3 at ≤ 1024px, 2 at ≤ 760px, and one card (88% wide, swipeable, no arrows) at ≤ 520px.
+The carousel shows 4 cards above 1024px, 3 at ≤ 1024px, 2 at ≤ 760px, and one card (88% wide, swipeable, no arrows) at ≤ 575px.
 
 The "Write a review" button goes to the active platform's `write_url`; on the "All" tab it uses `default_write_platform` (Amazon: the product's review form, `/review/create-review?asin=B0D2LXC354`). The Etsy tab goes to Etsy's Purchases page, the only place a buyer can review an Etsy order.
 

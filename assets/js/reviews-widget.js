@@ -42,7 +42,7 @@
   const STRINGS = {
     loading: 'Loading reviews…', unavailable: 'Reviews are unavailable right now.',
     tabs_aria: 'Filter reviews by platform', tab_all: 'All', tab_all_suffix: ' reviews',
-    tab_title: '{name}: {count} reviews', tab_aria: '{name}, {count} reviews', write_review: 'Write a review',
+    tab_title: '{name}: {count} reviews', tab_aria: '{name}, {count} reviews', write_review: 'Write a review', write_review_short: 'Review',
     based_on: 'Based on ', review_one: 'review', review_many: 'reviews', on_platform: ' on {platform}',
     stars_aria: '{rating} out of 5 stars', recommends: 'Recommends', view_on: 'View on {platform}',
     card_aria: "Read {name}'s review on {platform} (opens in a new tab)", anonymous: 'Anonymous',
@@ -328,7 +328,7 @@
             <div class="rw-based"><span class="rw-based-pre">${esc(S.based_on)}</span><strong>${pool.length}</strong> ${esc(pool.length === 1 ? S.review_one : S.review_many)}<span class="rw-based-pre">${active === 'all' ? '' : esc(fill(S.on_platform, { platform: pname(active) }))}</span></div>
           </div>
         </div>
-        <a class="rw-write" href="${esc(write)}" target="_blank" rel="noopener">${esc(S.write_review)}</a>
+        <a class="rw-write" href="${esc(write)}" target="_blank" rel="noopener" aria-label="${esc(S.write_review)}"><span class="rw-write-long">${esc(S.write_review)}</span><span class="rw-write-short">${esc(S.write_review_short)}</span></a>
         ${tabs}
       </header>`;
 
