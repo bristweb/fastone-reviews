@@ -122,7 +122,7 @@
 .rw-fixed .rw-track{flex:1 1 auto;min-height:0}
 .rw-fixed.rw-layout-carousel .rw-track{grid-template-rows:minmax(0,1fr);overflow-y:hidden}
 .rw-fixed.rw-layout-carousel .rw-card{min-height:0;overflow:hidden}
-.rw-fixed.rw-layout-carousel .rw-text{flex:1 1 auto;min-height:0;overflow-y:auto;scrollbar-width:thin;overscroll-behavior:contain}
+.rw-fixed.rw-layout-carousel .rw-text{flex:1 1 auto;min-height:0;overflow-x:hidden;overflow-y:auto;scrollbar-width:thin}
 .rw-fixed.rw-layout-grid .rw-track{overflow-y:auto;align-content:start;scrollbar-width:thin}
 .rw-fixed .rw-card-top,.rw-fixed .rw-stars,.rw-fixed .rw-rec,.rw-fixed .rw-link,.rw-fixed .rw-ai-top{flex:none}
 @container rw (max-height:460px){
@@ -137,3 +137,26 @@
   .rw-fixed .rw-header{padding:6px 10px;margin-bottom:6px}.rw-fixed .rw-score{font-size:24px}.rw-fixed .rw-based{margin-top:0}
   .rw-fixed .rw-card{padding:10px 12px;gap:5px}.rw-fixed .rw-avatar{width:32px;height:32px}.rw-fixed .rw-card-top{gap:9px}
   .rw-fixed .rw-text{font-size:13.5px;line-height:1.45}.rw-fixed .rw-link{font-size:12.5px}}
+/* Very short fixed-height boxes: same layout, fewer extras. The header stays one compact row (no review count line),
+   cards drop the date and the "View on" cue, the snippet is clamped to the whole lines that fit, and the AI summary
+   keeps as much room as possible for its text (which scrolls, with a fade at the bottom). */
+@container rw (max-height:240px){
+  .rw-fixed .rw-header{padding:4px 10px;margin-bottom:6px;gap:8px}.rw-fixed .rw-summary{gap:7px}
+  .rw-fixed .rw-score{font-size:22px}.rw-fixed .rw-based{display:none}.rw-fixed .rw-stars-lg i{width:13px;height:13px}
+  .rw-fixed .rw-write{padding:4px 10px;font-size:12px}.rw-fixed .rw-tab{padding:2px 7px;font-size:12px}
+  .rw-fixed.rw-layout-carousel .rw-track{padding:2px 2px 4px}
+  .rw-fixed .rw-nav{width:28px;height:28px;font-size:20px;padding:0 0 2px}
+  .rw-fixed .rw-card{padding:8px 10px;gap:4px}
+  .rw-fixed .rw-card-top{gap:8px}.rw-fixed .rw-avatar{width:26px;height:26px}.rw-fixed .rw-name{font-size:13px}
+  .rw-fixed .rw-who time,.rw-fixed .rw-link{display:none}
+  .rw-fixed .rw-stars i{width:13px;height:13px}.rw-fixed .rw-stars svg{display:block}
+  .rw-fixed.rw-layout-carousel .rw-text{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;font-size:13px;line-height:1.4}
+  .rw-fixed .rw-ai{gap:3px}.rw-fixed .rw-ai-top{font-size:11px;gap:5px}
+  .rw-fixed .rw-ai-icon{width:16px;height:16px}.rw-fixed .rw-ai-icon svg{width:10px;height:10px}
+  .rw-fixed .rw-ai-text{font-size:13px;line-height:1.4}}
+@container rw (max-height:180px){
+  .rw-fixed .rw-header{padding:3px 8px;margin-bottom:4px}.rw-fixed .rw-score{font-size:20px}
+  .rw-fixed .rw-card{padding:6px 9px;gap:3px}.rw-fixed .rw-avatar{width:20px;height:20px}
+  .rw-fixed .rw-stars i{width:12px;height:12px}
+  .rw-fixed.rw-layout-carousel .rw-text,.rw-fixed .rw-ai-text{font-size:12.5px;line-height:1.35}
+  .rw-fixed .rw-nav{width:24px;height:24px;font-size:18px}}

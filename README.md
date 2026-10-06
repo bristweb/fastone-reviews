@@ -124,6 +124,7 @@ In Google Sites: *Insert → Embed → Embed code*, paste the snippet, *Next*, *
 | above 460px | full header, roomy cards |
 | about 420px (recommended) | one-row header without "Excellent" / "Based on"; the whole snippet shows on desktop widths |
 | 300-400px | smaller score, stars, and text; longer snippets scroll inside their card |
+| 140-240px | same layout with fewer extras: a slim one-row header, no dates or "View on" cues, snippets clamped to the lines that fit; the AI summary keeps most of the room. Tested down to 140px tall |
 
 **Tested** in Chrome with a simulated Google Sites iframe (the sandbox above, and again without `allow-same-origin`, which gives the frame an opaque origin), at heights of 300, 400, 460 and 500px and widths of 400, 800 and 1200px. In every case nothing was cut off and the page inside the box never scrolled. The arrows paged through the cards, the font and data loaded, and clicking a card opened the review in a new tab. The same results held with *Embed → By URL* and `https://bristweb.github.io/fastone-reviews/embed.html?fixed-height=true&arrows=inside&overflow=hidden&hover-lift=false&focus-ring=inside`.
 
@@ -445,6 +446,8 @@ With [`data-fixed-height`](#google-sites-and-other-fixed-height-boxes) the heade
 | ≤ 460px | "Excellent" and "Based on" hidden, tighter header and card padding |
 | ≤ 360px | also a smaller score, stars, button, tabs, avatars and review text |
 | ≤ 300px | tighter still: smaller score, card padding, avatars, review text and "View on" link |
+| ≤ 240px | same layout, fewer extras: the header is one slim row (score and stars on the left, the button on the right, tabs in between on wide boxes; no "N reviews" line). Cards drop the date and the "View on …" cue, get a smaller avatar, and clamp the snippet to the whole lines that fit. The AI summary card keeps its label and gives the rest of the card to its text, which scrolls with a fade at the bottom. Smaller arrows |
+| ≤ 180px | slightly smaller still (score, avatar, stars, text, padding) |
 
 The carousel shows 4 cards above 1024px, 3 at ≤ 1024px, 2 at ≤ 760px, and one card (88% wide, swipeable, no arrows) at ≤ 575px.
 

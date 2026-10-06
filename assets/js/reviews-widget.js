@@ -367,6 +367,7 @@
 
       useFallbackIcons(el);
       fitSummary();
+      clampText();
       el.querySelectorAll('.rw-tab').forEach(b => b.addEventListener('click', () => { active = b.dataset.p; render(); }));
       const track = el.querySelector('.rw-track');
       const step = dir => track.scrollBy({ left: dir * track.clientWidth * 0.9, behavior: 'smooth' });
@@ -382,6 +383,16 @@
       upd();
       if (!cfg.fixed) notifyHeight();
     }
+    // Very short fixed-height boxes (CSS switches the snippet to -webkit-box): clamp it to the whole lines that fit.
+    function clampText() {
+      if (!cfg.fixed) return;
+      el.querySelectorAll('.rw-card .rw-text').forEach(t => {
+        t.style.removeProperty('-webkit-line-clamp');
+        if (getComputedStyle(t).display !== '-webkit-box') return;
+        const lh = parseFloat(getComputedStyle(t).lineHeight) || 18;
+        t.style.setProperty('-webkit-line-clamp', String(Math.max(1, Math.floor((t.clientHeight + 1) / lh))));
+      });
+    }
     // If the summary text is taller than its card (narrow cards), it scrolls; fade the bottom edge to show that.
     function fitSummary() {
       const t = el.querySelector('.rw-ai-text');
@@ -390,7 +401,7 @@
     el.addEventListener('scroll', e => { if (e.target.classList && e.target.classList.contains('rw-ai-text')) fitSummary(); }, { capture: true, passive: true });
     render();
     reveal();
-    new ResizeObserver(() => { fitSummary(); if (!cfg.fixed) notifyHeight(); }).observe(el);
+    new ResizeObserver(() => { fitSummary(); clampText(); if (!cfg.fixed) notifyHeight(); }).observe(el);
   }
 
   // When rendered inside an iframe (embed.html), tell the parent page our height.
