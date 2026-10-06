@@ -1,6 +1,6 @@
 # FASTONE Pro Paint — reviews data
 
-Every public review of **[FASTONE® Pro Premades](https://www.fastonepro.com/)** (the six-color heavy body acrylic skin tone paint set by Knoxville artist Heather Wolfe), plus the settings and theme for its reviews widget. The widget code and its documentation live in **[bristweb/reviews-widget](https://github.com/bristweb/reviews-widget)** (including a short [feature comparison](https://github.com/bristweb/reviews-widget#readme) with hosted review-widget SaaS and reputation platforms); this repo holds the data plus this site's own [sync tooling](#sync-tooling). GitHub Pages serves these files at `https://bristweb.github.io/fastone-reviews/`.
+Every public review of **[FASTONE® Pro Premades](https://www.fastonepro.com/)** (the six-color heavy body acrylic skin tone paint set by Knoxville artist Heather Wolfe), plus the settings and theme for its reviews widget. The widget code and its documentation live in **[bristweb/reviews-widget](https://github.com/bristweb/reviews-widget)** (including a short [feature comparison](https://github.com/bristweb/reviews-widget/blob/main/COMPARISON.md) with hosted review-widget SaaS and reputation platforms); this repo holds the data plus this site's own [sync tooling](#sync-tooling). GitHub Pages serves these files at `https://bristweb.github.io/fastone-reviews/`.
 
 - **Live widget:** https://bristweb.github.io/reviews-widget/?source=https://bristweb.github.io/fastone-reviews/
 - **Settings:** [`config.json`](config.json) · **Reviews:** [`reviews/`](reviews/) (one file per year)
