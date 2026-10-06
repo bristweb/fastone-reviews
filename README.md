@@ -17,13 +17,12 @@ Every public review of **[FASTONE® Pro Premades](https://www.fastonepro.com/)**
 
 ## Embed
 
-fastonepro.com is a Google Sites page, so use the fixed-height variant there (*Insert → Embed → Embed code*, paste, then stretch the box to full width and about 420px tall):
+fastonepro.com is a Google Sites page, so use the constrained preset there (*Insert → Embed → Embed code*, paste, then stretch the box to full width and about 420px tall):
 
 ```html
 <script src="https://bristweb.github.io/reviews-widget/assets/js/reviews-widget.js"
         data-source="https://bristweb.github.io/fastone-reviews/"
-        data-fixed-height="true" data-arrows="inside" data-overflow="hidden"
-        data-hover-lift="false" data-focus-ring="inside"></script>
+        data-constrained="true"></script>
 ```
 
 Anywhere else, the plain JavaScript embed sizes itself:
@@ -52,7 +51,7 @@ All options (layout, platform filter, limit, fitting options): see the [reviews-
 
 ```
 config.json           business + product, platforms (Amazon, Etsy: links, ASIN / listing filters, scrape URLs,
-                      reported counts), links, display, strings, schema, avatar palette, AI summary, reviews.years
+                      reported counts), links, display, strings, schema, avatar palette, summary, reviews.years
 reviews/<year>.json   the reviews dated in that year, newest first (2024-2026)
 images/reviewers/     avatars: <platform>-<platform_review_id>.<ext>
 icons/                amazon.svg, etsy.svg + instagram, youtube, website
@@ -93,14 +92,14 @@ Amazon runs ask only for reviews newer than the newest stored Amazon review minu
 python3 scripts/pull_reviews.py --print-inputs   # per platform: actor, input with the date window, cost cap, save path
 # run each actor with that input (e.g. Apify connector call-actor, maxTotalChargeUsd 0.5) and save its dataset items
 # as a JSON array to the printed path (.pull/amazon.json, .pull/etsy.json)
-python3 scripts/pull_reviews.py --from-raw       # imports NEW reviews only, checks the AI summary
+python3 scripts/pull_reviews.py --from-raw       # imports NEW reviews only, checks the summary
 node ../reviews-widget/scripts/validate.mjs .    # optional local check (the push workflow runs it too)
 git add reviews images/reviewers config.json && git commit -m "reviews: sync $(date +%F)" && git push
 ```
 
 Other ways to run it: `APIFY_TOKEN=… python3 scripts/pull_reviews.py` calls the Apify REST API itself; `--all` drops the date window (still adds only new reviews); `python3 scripts/import_reviews.py --update --<platform> <file>` refreshes existing records (keeping `collected_at`, avatars and `featured_on_website`). `.pull/` holds raw scraper output and is git-ignored.
 
-New reviews are added to `reviews/<year>.json` (a new year gets a new file and is added to `reviews.years`), with avatars downloaded to `images/reviewers/<platform>-<platform_review_id>.<ext>` or an initials SVG in the `avatars` colors. **AI summary:** after an import the script prints `SUMMARY STALE` when any review is dated or was collected after `summary.generated_at`, and writes every review text to `.pull/summary_input.txt`. Rewrite `summary.text` from it (2-4 sentences, about 300 characters, only themes that appear in the reviews, no invented facts, no attributed quotes, no star claims) and set `summary.generated_at` to the current UTC time.
+New reviews are added to `reviews/<year>.json` (a new year gets a new file and is added to `reviews.years`), with avatars downloaded to `images/reviewers/<platform>-<platform_review_id>.<ext>` or an initials SVG in the `avatars` colors. **Summary:** after an import the script prints `SUMMARY STALE` when any review is dated or was collected after `summary.generated_at`, and writes every review text to `.pull/summary_input.txt`. Rewrite `summary.text` from it (2-4 sentences, about 300 characters, only themes that appear in the reviews, no invented facts, no attributed quotes, no star claims) and set `summary.generated_at` to the current UTC time.
 
 ## Look and feel
 
@@ -116,7 +115,7 @@ New reviews are added to `reviews/<year>.json` (a new year gets a new file and i
 | `--rw-star` / `--rw-star-off` | `#f5b301` / `#dddddd` |
 | `--rw-radius` / `--rw-max-width` | `8px` / `1200px` |
 
-The theme also sets the score, rating label and AI-summary label in uppercase Oswald, and starts the Oswald download while the widget waits for Open Sans so the header never repaints.
+The theme also sets the score, rating label and Summary label in uppercase Oswald, and starts the Oswald download while the widget waits for Open Sans so the header never repaints.
 
 ## Structured data
 
