@@ -12,7 +12,7 @@
   },
   "sources": {
     "checked_at": "2026-10-05",
-    "notes": "Every URL linked from fastonepro.com (a Google Sites page; checked /home, /legal and /safety). `platforms` are the review platforms, monitored weekly; `links` are the other linked URLs, none of which has reviews of FASTONE. `reported_*` values are what the platform itself showed on checked_at. `scrape_urls` is what the pull script feeds to the scraper; `page_url` doubles as the fallback review link. Amazon `asins` / Etsy `listing_ids` limit the import to the FASTONE products the site links to."
+    "notes": "Every URL linked from fastonepro.com (a Google Sites page; checked /home, /legal and /safety). `platforms` are the review platforms, monitored by scripts/pull_reviews.py; `links` are the other linked URLs, none of which has reviews of FASTONE. `reported_*` values are what the platform itself showed on checked_at. `scrape_urls` is what scripts/pull_reviews.py feeds to the scraper; `page_url` doubles as the fallback review link. Amazon `asins` / Etsy `listing_ids` limit the import to the FASTONE products the site links to."
   },
   "default_write_platform": "amazon",
   "platforms": {

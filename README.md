@@ -1,6 +1,6 @@
 # FASTONE Pro Paint — reviews data
 
-Every public review of **[FASTONE® Pro Premades](https://www.fastonepro.com/)** (the six-color heavy body acrylic skin tone paint set by Knoxville artist Heather Wolfe), plus the settings and theme for its reviews widget. This repo is **data only**: the widget code, the import/sync scripts and the full documentation live in **[bristweb/reviews-widget](https://github.com/bristweb/reviews-widget)**. GitHub Pages serves these files at `https://bristweb.github.io/fastone-reviews/`.
+Every public review of **[FASTONE® Pro Premades](https://www.fastonepro.com/)** (the six-color heavy body acrylic skin tone paint set by Knoxville artist Heather Wolfe), plus the settings and theme for its reviews widget. The widget code and its documentation live in **[bristweb/reviews-widget](https://github.com/bristweb/reviews-widget)**; this repo holds the data plus this site's own [sync tooling](#sync-tooling). GitHub Pages serves these files at `https://bristweb.github.io/fastone-reviews/`.
 
 - **Live widget:** https://bristweb.github.io/reviews-widget/?source=https://bristweb.github.io/fastone-reviews/
 - **Settings:** [`config.json`](config.json) · **Reviews:** [`reviews/`](reviews/) (one file per year)
@@ -10,7 +10,7 @@ Every public review of **[FASTONE® Pro Premades](https://www.fastonepro.com/)**
 1. [Embed](#embed)
 2. [What's here](#whats-here)
 3. [Reviews and platforms](#reviews-and-platforms)
-4. [Weekly sync](#weekly-sync)
+4. [Sync tooling](#sync-tooling)
 5. [Look and feel](#look-and-feel)
 6. [Structured data](#structured-data)
 7. [Credits](#credits)
@@ -57,6 +57,7 @@ reviews/<year>.json   the reviews dated in that year, newest first (2024-2026)
 images/reviewers/     avatars: <platform>-<platform_review_id>.<ext>
 icons/                amazon.svg, etsy.svg + instagram, youtube, website
 theme/                theme.css (colors, Oswald labels) + self-hosted Open Sans and Oswald
+scripts/              this site's sync tooling (never loaded by the widget)
 .github/workflows/    validate.yml: runs the shared validator on every push
 ```
 
@@ -74,19 +75,33 @@ fastonepro.com links to exactly one product on each marketplace: Amazon ASIN **B
 - **Amazon gap:** Amazon counts 20 ratings, but 8 are star-only with no text. Amazon never lists those individually, so they can't be stored or shown; the widget and JSON-LD use the 12 written reviews (average 4.75, shown as 4.8). These reviewers have Amazon's default silhouette, so their avatars are generated initials. Amazon has no public seller replies. 2 of the 12 are **Amazon Vine** reviews (Daytona S., Joe), flagged `amazon_vine: true`. Amazon cards open the individual review (Amazon may ask visitors to sign in).
 - **Etsy:** the shop has 3 reviews in total; only Merlyn's (2025-10-21) is for the FASTONE listing, so the importer keeps only `listing_ids` [1872977093]. Etsy has no per-review URL (`review_url` is the listing's reviews section). Merlyn's avatar and profile link come from the listing page's review markup (the actor has no avatar field); a new Etsy review gets an initials avatar unless `buyer_avatar_url` / `buyer_profile_url` are added to its item before importing.
 - **About Elfsight:** fastonepro.com has no Elfsight (or other) reviews widget.
-- **Also check every few weeks:** the Amazon rating count (if it grew without a new written review, the new ones are star-only), the Faire brand page, and fastonepro.com for new product links (add the ASIN / listing id to `config.json`).
+- **Also check from time to time:** the Amazon rating count (if it grew without a new written review, the new ones are star-only), the Faire brand page, and fastonepro.com for new product links (add the ASIN / listing id to `config.json`).
 
-## Weekly sync
+## Sync tooling
 
-A scheduled run (`weekly-fastone-review-sync`) pulls new reviews with the shared scripts through Apify: Amazon (`junglee/amazon-reviews-scraper`, date-windowed to the newest stored review minus 30 days) and Etsy (`astravalabs/etsy-reviews-scraper`, shop-wide, newest 50), each capped at $0.50 per run (a week with no new reviews costs about $0.01). See [reviews-widget: Weekly sync](https://github.com/bristweb/reviews-widget#weekly-sync).
+`scripts/` collects this site's reviews (Python 3, no packages); the widget never loads it. Settings live in `config.json` `platforms`: `scrape_urls` (Amazon product URL, Etsy shop), `asins` / `listing_ids` (import only the FASTONE product), `product_title`, `page_url` (fallback link), and `avatars` (initials colors). How often it runs is up to whoever schedules it.
+
+| Platform | Method | Actor | Why |
+|---|---|---|---|
+| Amazon | Apify | `junglee/amazon-reviews-scraper` (run with `includeGdprSensitive` for names and profile links) | the product page renders reviews client-side; review pages redirect to Sign in |
+| Etsy | Apify | `astravalabs/etsy-reviews-scraper` (shop-wide; the importer keeps listing 1872977093 only) | etsy.com is behind DataDome (403) |
+
+Amazon runs ask only for reviews newer than the newest stored Amazon review minus 30 days (`--since-days`); Etsy has no date filter (newest 50 in the shop). Each run is capped at $0.50 (Apify's minimum); a run with no new reviews costs about $0.01. On Apify's free plan the Amazon actor returns at most 10 reviews per run, so a full re-pull (`--all`) runs once per star rating. Initial pull (2026-10-05): 3 Amazon runs (12 unique reviews) ≈ $0.13, 1 Etsy run ≈ $0.01, 1 listing-page fetch ≈ $0.002.
+
+**Etsy avatars:** the Etsy actor has no avatar field. A new Etsy review gets an initials avatar unless `buyer_avatar_url` / `buyer_profile_url` (from the listing page's review markup) are added to its item in `.pull/etsy.json` before importing.
 
 ```bash
-python3 reviews-widget/scripts/pull_reviews.py --data fastone-reviews --print-inputs
-# run the Amazon / Etsy actors, save items to fastone-reviews/.pull/amazon.json and etsy.json
-python3 reviews-widget/scripts/pull_reviews.py --data fastone-reviews --from-raw
+python3 scripts/pull_reviews.py --print-inputs   # per platform: actor, input with the date window, cost cap, save path
+# run each actor with that input (e.g. Apify connector call-actor, maxTotalChargeUsd 0.5) and save its dataset items
+# as a JSON array to the printed path (.pull/amazon.json, .pull/etsy.json)
+python3 scripts/pull_reviews.py --from-raw       # imports NEW reviews only, checks the AI summary
+node ../reviews-widget/scripts/validate.mjs .    # optional local check (the push workflow runs it too)
+git add reviews images/reviewers config.json && git commit -m "reviews: sync $(date +%F)" && git push
 ```
 
-Initial pull (2026-10-05): 3 Amazon runs (12 unique reviews) ≈ $0.13, 1 Etsy run ≈ $0.01, 1 listing-page fetch ≈ $0.002. On Apify's free plan the Amazon actor returns at most 10 reviews per run, so a full re-pull (`--all`) runs once per star rating.
+Other ways to run it: `APIFY_TOKEN=… python3 scripts/pull_reviews.py` calls the Apify REST API itself; `--all` drops the date window (still adds only new reviews); `python3 scripts/import_reviews.py --update --<platform> <file>` refreshes existing records (keeping `collected_at`, `source`, avatars and `featured_on_website`). `.pull/` holds raw scraper output and is git-ignored.
+
+New reviews are added to `reviews/<year>.json` (a new year gets a new file and is added to `reviews.years`), with avatars downloaded to `images/reviewers/<platform>-<platform_review_id>.<ext>` or an initials SVG in the `avatars` colors. **AI summary:** after an import the script prints `SUMMARY STALE` when any review is dated or was collected after `summary.generated_at`, and writes every review text to `.pull/summary_input.txt`. Rewrite `summary.text` from it (2-4 sentences, about 300 characters, only themes that appear in the reviews, no invented facts, no attributed quotes, no star claims) and set `summary.generated_at` to the current UTC time.
 
 ## Look and feel
 
