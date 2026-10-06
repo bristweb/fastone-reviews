@@ -129,7 +129,7 @@ def main():
                               'maxTotalChargeUsd': a.max_usd, 'save_items_to': f'.pull/{p}.json'}
                           for p, (act, b) in ACTORS.items()}, indent=2))
         return
-    args = []
+    args, apify_args = [], []  # direct pulls / Apify pulls (imported with source 'direct' / 'apify')
     if ZOLA_URL:
         try:
             print('zola (direct):', pull_zola(os.path.join(RAW, 'zola.json')), 'reviews on page')
@@ -141,7 +141,7 @@ def main():
         if a.from_raw:
             if os.path.exists(path):
                 print(f'{plat}: importing {path}')
-                args += [f'--{plat}', path]
+                apify_args += [f'--{plat}', path]
             else:
                 print(f'{plat}: no {path}, skipped')
             continue
@@ -151,12 +151,16 @@ def main():
         since = since_for(plat)
         try:
             print(f'{plat} (apify {actor}, since {since or "all"}):', pull_apify(actor, build(since), token, a.max_usd, path), 'items')
-            args += [f'--{plat}', path]
+            apify_args += [f'--{plat}', path]
         except Exception as e:
             print(f'{plat} failed:', e, file=sys.stderr)
-    if not args:
+    if not args and not apify_args:
         sys.exit('nothing pulled')
-    subprocess.run([sys.executable, os.path.join(ROOT, 'scripts', 'import_reviews.py'), *args], check=True)
+    importer = os.path.join(ROOT, 'scripts', 'import_reviews.py')
+    if args:
+        subprocess.run([sys.executable, importer, *args, '--source', 'direct'], check=True)
+    if apify_args:
+        subprocess.run([sys.executable, importer, *apify_args, '--source', 'apify'], check=True)
     subprocess.run(['node', os.path.join(ROOT, 'scripts', 'build-index.mjs')], check=True)
     check_summary()
 
