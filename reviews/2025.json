@@ -1,0 +1,53 @@
+[
+  {
+    "platform": "etsy",
+    "platform_review_id": "4777804519",
+    "reviewer_name": "Merlyn",
+    "reviewer_profile_url": "https://www.etsy.com/people/music4u2",
+    "reviewer_image": "images/reviewers/etsy-4777804519.jpg",
+    "reviewer_image_source_url": "https://i.etsystatic.com/iusa/4fe971/28149705/iusa_75x75.28149705_t7q6.jpg?version=0",
+    "rating": 5,
+    "text": "Thank you so much.  It makes painting skin so much easier instead of having to mix.  Call me lazy.",
+    "date": "2025-10-21T12:00:00Z",
+    "review_url": "https://www.etsy.com/listing/1872977093#reviews",
+    "owner_reply": null,
+    "collected_at": "2026-10-06T02:30:35Z",
+    "source": "apify",
+    "item_reviewed": {
+      "title": "FASTONE Acrylic Skin Tone Paint Set - 6 Pack Pro Premades",
+      "listing_id": "1872977093",
+      "url": "https://www.etsy.com/listing/1872977093"
+    },
+    "verified_purchase": true,
+    "verified_purchase_source": "Etsy reviews can only be left by buyers; tied to Etsy transaction 4777804519",
+    "etsy_shop": "heatherwolfeart",
+    "etsy_shop_id": 5453283
+  },
+  {
+    "platform": "amazon",
+    "platform_review_id": "RBENT94J03B6L",
+    "reviewer_name": "Hernando Saenz",
+    "reviewer_profile_url": "https://www.amazon.com/gp/profile/amzn1.account.AEV2GUMXBRW7BZGO54QRUMDLPYHA",
+    "reviewer_image": "images/reviewers/amazon-RBENT94J03B6L.svg",
+    "reviewer_image_source_url": null,
+    "rating": 5,
+    "text": "Love these! Excellent quality! Having premixed skin tones make painting so much quicker especially when painting at a live event. I highly recommend them!",
+    "date": "2025-04-19T12:00:00Z",
+    "review_url": "https://www.amazon.com/gp/customer-reviews/RBENT94J03B6L",
+    "owner_reply": null,
+    "collected_at": "2026-10-06T02:30:35Z",
+    "source": "apify",
+    "title": "Excellent product!",
+    "item_reviewed": {
+      "title": "FASTONE Acrylic Skin Tone Paint Set - 6 Pack Pro Premades",
+      "asin": "B0D2LXC354",
+      "variant_asin": "B0D2LXC354",
+      "variant": null,
+      "url": "https://www.amazon.com/dp/B0D2LXC354"
+    },
+    "verified_purchase": true,
+    "reviewed_in": "Reviewed in the United States on April 19, 2025",
+    "country": "United States",
+    "amazon_user_id": "AEV2GUMXBRW7BZGO54QRUMDLPYHA"
+  }
+]

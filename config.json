@@ -1,0 +1,239 @@
+{
+  "business": {
+    "name": "FASTONE Pro Paint",
+    "website": "https://www.fastonepro.com/",
+    "product": {
+      "name": "FASTONE® Acrylic Skin Tone Paint Set - 6 Pack Pro Premades",
+      "brand": "FASTONE",
+      "maker": "Heather Wolfe Art (Heather Wolfe, Knoxville TN)",
+      "upc": "726872046914",
+      "description_source": "fastonepro.com Specifications / Label section"
+    }
+  },
+  "sources": {
+    "checked_at": "2026-10-05",
+    "notes": "Every URL linked from fastonepro.com (a Google Sites page; checked /home, /legal and /safety). `platforms` are the review platforms, monitored weekly; `links` are the other linked URLs, none of which has reviews of FASTONE. `reported_*` values are what the platform itself showed on checked_at. `scrape_urls` is what the pull script feeds to the scraper; `page_url` doubles as the fallback review link. Amazon `asins` / Etsy `listing_ids` limit the import to the FASTONE products the site links to."
+  },
+  "default_write_platform": "amazon",
+  "platforms": {
+    "amazon": {
+      "name": "Amazon",
+      "icon": "icons/amazon.svg",
+      "write_url": "https://www.amazon.com/review/create-review?asin=B0D2LXC354",
+      "page_url": "https://www.amazon.com/product-reviews/B0D2LXC354",
+      "card_link": "review",
+      "linked_url": "https://www.amazon.com/dp/B0D2LXC354",
+      "linked_as": "\"Buy On Amazon\" button (two links to the same ASIN, one with a maas affiliate tag)",
+      "asins": [
+        "B0D2LXC354"
+      ],
+      "product_title": "FASTONE Acrylic Skin Tone Paint Set - 6 Pack Pro Premades",
+      "scrape_urls": [
+        "https://www.amazon.com/dp/B0D2LXC354"
+      ],
+      "brand_store_url": "https://www.amazon.com/stores/FASTONE/page/A1263297-6ABE-4651-9793-4896110AA47B",
+      "reported_rating": 4.8,
+      "reported_count": 20,
+      "reported_written_reviews": 12,
+      "reported_histogram": {
+        "5": "79%",
+        "4": "21%",
+        "3": "0%",
+        "2": "0%",
+        "1": "0%"
+      },
+      "rating_note": "Amazon shows 20 global ratings (4.8). Only 12 have written text (9 five-star, 3 four-star); the other 8 are star-only ratings that Amazon never lists individually (no name, date or id), so they cannot be stored as reviews. Stored: all 12 written reviews. Amazon shows no seller replies on reviews."
+    },
+    "etsy": {
+      "name": "Etsy",
+      "icon": "icons/etsy.svg",
+      "write_url": "https://www.etsy.com/your/purchases",
+      "page_url": "https://www.etsy.com/listing/1872977093#reviews",
+      "card_link": "review",
+      "linked_url": "https://heatherwolfeart.etsy.com/listing/1872977093",
+      "linked_as": "\"Buy on Etsy\" button",
+      "shop": "HeatherWolfeArt",
+      "shop_id": 5453283,
+      "listing_ids": [
+        "1872977093"
+      ],
+      "listing_title": "FASTONE® Acrylic Skin Tone Paint Set - 6 Pack Pro Premades",
+      "scrape_urls": [
+        "heatherwolfeart"
+      ],
+      "reported_rating": 5.0,
+      "reported_count": 1,
+      "rating_note": "The listing's own JSON-LD shows AggregateRating 5.0 from 1 review. The shop has 3 reviews in total; the other 2 are for Heather Wolfe Art paintings/prints (listings 1873803908 and 20046009), not FASTONE, and are skipped by the importer. Etsy reviews can only be written by buyers, from their Purchases page."
+    }
+  },
+  "links": [
+    {
+      "platform": "faire",
+      "name": "Faire (wholesale)",
+      "linked_url": "https://faire.com/direct/heatherwolfeart",
+      "linked_as": "\"Buy Wholesale (For Retailers)\" button",
+      "brand_url": "https://www.faire.com/brand/b_wbku5d9abb",
+      "reported_rating": null,
+      "reported_count": 0,
+      "note": "Faire has retailer reviews of brands, but the Heather Wolfe Art brand page shows brand_reviews_summary number_of_reviews 0 (checked 2026-10-05). Add it as a review platform if retailer reviews appear."
+    },
+    {
+      "platform": "local_retailer",
+      "name": "Jerry's Artarama Knoxville (Google Maps)",
+      "linked_url": "https://maps.app.goo.gl/AGFBr81sTQ7ozFF99",
+      "resolved_url": "https://www.google.com/maps/place/Jerry's+Artarama/@35.9364529,-83.9892407",
+      "linked_as": "\"Buy Local\" button",
+      "note": "A third-party art-supply store that stocks FASTONE. Its Google reviews are about the store, not FASTONE, so they are not collected."
+    },
+    {
+      "platform": "instagram",
+      "name": "Instagram",
+      "linked_url": "https://www.instagram.com/fastonepro/",
+      "icon": "icons/instagram.svg"
+    },
+    {
+      "platform": "youtube",
+      "name": "YouTube",
+      "linked_url": "https://www.youtube.com/@HeatherWolfeArt",
+      "note": "Three videos embedded on the home page (AgzT5rj7oVI = the tutorial, also linked from the Etsy listing; Y8T3HxXeZmU; tkc8lPN1yrQ). YouTube has no review system.",
+      "icon": "icons/youtube.svg",
+      "embedded_videos": [
+        "https://www.youtube.com/watch?v=AgzT5rj7oVI",
+        "https://www.youtube.com/watch?v=Y8T3HxXeZmU",
+        "https://www.youtube.com/watch?v=tkc8lPN1yrQ"
+      ]
+    },
+    {
+      "platform": "website",
+      "name": "Heather Wolfe Art",
+      "linked_url": "https://heatherwolfeart.com",
+      "note": "The maker's own site; its reviews are in bristweb/heather-wolfe-art-reviews.",
+      "icon": "icons/website.svg"
+    },
+    {
+      "platform": "trademark",
+      "name": "USPTO TSDR",
+      "linked_url": "https://tsdr.uspto.gov/documentviewer?caseId=sn98569508&docId=ORC20250220035403&linkId=1#docIndex=0&page=1",
+      "note": "Linked from /legal (FASTONE® trademark registration, serial 98569508)."
+    },
+    {
+      "platform": "template",
+      "name": "Color-study template (Google Drive)",
+      "linked_url": "https://drive.google.com/file/d/1w7Hxukg0Ass8LxGGjIvLVTKpxi_cMDvL/view?usp=drive_link",
+      "linked_as": "\"download the template here\" on the home page",
+      "note": "Not a review platform. The Safety Data Sheet on /safety is a separate embedded Drive PDF (1g0py96moxQ4N5hRjK3AXBhbWwl1uxuHf)."
+    }
+  ],
+  "display": {
+    "layout": "carousel",
+    "snippet_chars": 160,
+    "abbreviate_last_names": true,
+    "max_same_platform_run": 2,
+    "diversity_window_days": 548,
+    "date_locale": "en-US",
+    "date_options": {
+      "year": "numeric",
+      "month": "short",
+      "day": "numeric"
+    },
+    "font_timeout_ms": 1200,
+    "show_rating_only_reviews": false,
+    "show_summary": true,
+    "fixed_height": false,
+    "overflow": "clip",
+    "arrows": "outside",
+    "hover_lift": true,
+    "focus_ring": "outside",
+    "cards": 0,
+    "padding": 6
+  },
+  "schema": {
+    "enabled": true,
+    "type": "Product",
+    "max_reviews": 0,
+    "extra": {
+      "@id": "https://www.fastonepro.com/#product",
+      "name": "FASTONE® Pro Premades Skin Tone Paint Set (6 pack)",
+      "description": "Six professional grade heavy body acrylic paint colors in skin tones, a starting point for skin tones from light to dark. Pack of six individually colored tubes, 1.3 oz / 36 g each, hand crafted in small batches by Knoxville artist Heather Wolfe.",
+      "brand": {
+        "@type": "Brand",
+        "name": "FASTONE"
+      },
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "Heather Wolfe Art",
+        "url": "https://heatherwolfeart.com/"
+      },
+      "gtin12": "726872046914",
+      "category": "Acrylic paint",
+      "image": "https://i.etsystatic.com/5453283/r/il/4656a3/6685968071/il_fullxfull.6685968071_559c.jpg",
+      "sameAs": [
+        "https://www.amazon.com/dp/B0D2LXC354",
+        "https://www.etsy.com/listing/1872977093"
+      ]
+    }
+  },
+  "rating_labels": [
+    {
+      "min": 4.75,
+      "label": "Excellent"
+    },
+    {
+      "min": 4.25,
+      "label": "Great"
+    },
+    {
+      "min": 3.5,
+      "label": "Good"
+    },
+    {
+      "min": 0,
+      "label": "Reviews"
+    }
+  ],
+  "strings": {
+    "loading": "Loading reviews…",
+    "unavailable": "Reviews are unavailable right now.",
+    "tabs_aria": "Filter reviews by platform",
+    "tab_all": "All",
+    "tab_all_suffix": " reviews",
+    "tab_title": "{name}: {count} reviews",
+    "tab_aria": "{name}, {count} reviews",
+    "write_review": "Write a review",
+    "write_review_short": "Review",
+    "based_on": "Based on ",
+    "review_one": "review",
+    "review_many": "reviews",
+    "on_platform": " on {platform}",
+    "stars_aria": "{rating} out of 5 stars",
+    "recommends": "Recommends",
+    "view_on": "View on {platform}",
+    "card_aria": "Read {name}'s review on {platform} (opens in a new tab)",
+    "anonymous": "Anonymous",
+    "previous": "Previous reviews",
+    "next": "Next reviews",
+    "ai_summary": "AI summary",
+    "ai_summary_aria": "AI-generated summary of {count} reviews"
+  },
+  "avatars": {
+    "initials_palette": [
+      "#1F1F1F",
+      "#424242",
+      "#5F6368",
+      "#2E2E2E",
+      "#555555"
+    ],
+    "initials_text_color": "#fff"
+  },
+  "summary": {
+    "text": "Artists, many of them live wedding and event painters, say these premixed skin tones save mixing time and give a natural, true-to-life base for portraits. They praise the smooth, densely pigmented paint. A few still mix to customize, and one found the set heavy on dark tones.",
+    "generated_at": "2026-10-06T02:31:00Z"
+  },
+  "reviews": {
+    "years": [
+      2026,
+      2025,
+      2024
+    ]
+  }
+}
