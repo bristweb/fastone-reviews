@@ -1,4 +1,5 @@
 {
+  "allowed_origins": ["fastonepro.com", "www.fastonepro.com", "*.googleusercontent.com", "sites.google.com", "bristweb.github.io", "reviews-widget-5tv.pages.dev"],
   "business": {
     "name": "FASTONE Pro Paint",
     "website": "https://www.fastonepro.com/",
