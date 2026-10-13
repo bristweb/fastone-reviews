@@ -14,12 +14,14 @@ refreshes existing ones (they keep collected_at, their avatar and a hand-set fea
 EVERYTHING is stored: full reviewer name, full text, owner reply (text + date), reviewer profile URL, avatar source
 URL, individual review URL, plus platform extras. Abbreviating names and clipping text happens only in the widget.
 Each review goes into reviews/<year of its date>.json (an array, newest first). When a review starts a new year,
-the file is created and the year is added to config.json reviews.years. Avatars are downloaded (never hotlinked) to
+the file is created and the year is added to config.js reviews.years. Avatars are downloaded (never hotlinked) to
 images/reviewers/<platform>-<platform_review_id>.<ext>, the id made filesystem-safe (characters other than
-A-Z a-z 0-9 _ - become _); an initials SVG is generated (config.json `avatars` palette) when there is no photo.
-Settings come from config.json `platforms`: page_url (fallback review link), Etsy `listing_ids`, Amazon `asins` / `product_title`.
+A-Z a-z 0-9 _ - become _); an initials SVG is generated (config.js `avatars` palette) when there is no photo.
+Settings come from config.js `platforms`: page_url (fallback review link), Etsy `listing_ids`, Amazon `asins` / `product_title`.
 """
 import argparse, datetime, hashlib, html, json, os, re, sys, urllib.request
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import cred_config  # noqa: E402
 
 NOW = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat().replace('+00:00', 'Z')
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # this data repo
@@ -34,12 +36,11 @@ def dump(obj, path):
 
 
 def init(data_dir):
-    """Everything site-specific comes from <data>/config.json: per-platform page_url (fallback link when a review
+    """Everything site-specific comes from <data>/config.js: per-platform page_url (fallback link when a review
     has no URL of its own), Amazon `asins` / Etsy `listing_ids` filters, product title, the initials-avatar palette."""
     global ROOT, CONFIG, PLATFORMS, REVIEW_PAGE, ETSY_LISTINGS, AMAZON_ASINS, PALETTE, INITIALS_TEXT
     ROOT = os.path.abspath(data_dir)
-    with open(os.path.join(ROOT, 'config.json')) as f:
-        CONFIG = json.load(f)
+    CONFIG = cred_config.load(ROOT)
     PLATFORMS = CONFIG.get('platforms', {})
     REVIEW_PAGE = {k: v.get('page_url') for k, v in PLATFORMS.items()}
     ETSY_LISTINGS = {str(i) for i in PLATFORMS.get('etsy', {}).get('listing_ids') or []}  # optional: only these listings
@@ -50,9 +51,9 @@ def init(data_dir):
 
 
 def load_reviews(data_dir=None):
-    """All stored reviews (every year listed in config.json reviews.years)."""
+    """All stored reviews (every year listed in config.js reviews.years)."""
     root = os.path.abspath(data_dir) if data_dir else ROOT
-    cfg = CONFIG if not data_dir else json.load(open(os.path.join(root, 'config.json')))
+    cfg = CONFIG if not data_dir else cred_config.load(root)
     out = []
     for y in (cfg.get('reviews') or {}).get('years', []):
         with open(os.path.join(root, 'reviews', f'{y}.json')) as f:
@@ -135,7 +136,7 @@ def reply(text, date):
 
 def from_etsy(x):
     """Apify astravalabs/etsy-reviews-scraper item. The actor returns every review in the shop; when
-    config.json platforms.etsy lists `listing_ids`, reviews of other listings are skipped. Etsy only lets buyers review,
+    config.js platforms.etsy lists `listing_ids`, reviews of other listings are skipped. Etsy only lets buyers review,
     so each review is tied to an order (`review_id` is Etsy's transaction id). The actor has no avatar field; an
     optional `buyer_avatar_url` / `buyer_profile_url` (read from the listing page's review markup) is used when present."""
     lid = str(x.get('listing_id') or '') or None
@@ -159,7 +160,7 @@ def from_etsy(x):
 
 def from_amazon(x):
     """Apify junglee/amazon-reviews-scraper item (run with includeGdprSensitive: true). Error / category-only rows
-    (no reviewId) are skipped, as are ASINs not listed in config.json platforms.amazon `asins` (when that list is set).
+    (no reviewId) are skipped, as are ASINs not listed in config.js platforms.amazon `asins` (when that list is set).
     Amazon shows no seller replies on reviews, so owner_reply is always null. The actor returns `avatar: null` when
     Amazon shows its default silhouette; an initials avatar is generated then."""
     if not x.get('reviewId'):
@@ -210,7 +211,7 @@ def main():
         if not path:
             continue
         if plat not in PLATFORMS:
-            print(f'{plat}: not in config.json platforms, skipped', file=sys.stderr)
+            print(f'{plat}: not in config.js platforms, skipped', file=sys.stderr)
             continue
         with open(path) as f:
             items = json.load(f)
@@ -262,7 +263,7 @@ def main():
 
 
 def save(reviews):
-    """reviews/<year>.json for every year (newest first); config.json reviews.years kept in step."""
+    """reviews/<year>.json for every year (newest first); config.js reviews.years kept in step."""
     by_year = {}
     for r in reviews:
         by_year.setdefault(r['date'][:4], []).append(r)
@@ -272,8 +273,8 @@ def save(reviews):
     years = sorted((int(y) for y in by_year), reverse=True)
     if (CONFIG.get('reviews') or {}).get('years') != years:
         CONFIG.setdefault('reviews', {})['years'] = years
-        dump(CONFIG, os.path.join(ROOT, 'config.json'))
-        print('config.json reviews.years ->', years)
+        cred_config.set_years(ROOT, years)
+        print('config.js reviews.years ->', years)
 
 
 if __name__ == '__main__':

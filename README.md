@@ -3,7 +3,7 @@
 Every public review of **[FASTONE® Pro Premades](https://www.fastonepro.com/)** (the six-color heavy body acrylic skin tone paint set by Knoxville artist Heather Wolfe), plus the settings and theme for its reviews widget. The widget code and its documentation live in **[bristweb/cred](https://github.com/bristweb/cred)** (including a short [feature comparison](https://github.com/bristweb/cred/blob/main/COMPARISON.md) with hosted review-widget SaaS and reputation platforms); this repo holds the data plus this site's own [sync tooling](#sync-tooling). Cloudflare Pages serves these files at `https://fastone-reviews.pages.dev/` (deployed by `.github/workflows/deploy.yml`); GitHub Pages at `https://bristweb.github.io/fastone-reviews/` is the backup.
 
 - **Live widget:** https://cred.bristleconeweb.com/?source=https://fastone-reviews.pages.dev/
-- **Settings:** [`config.json`](config.json) · **Reviews:** [`reviews/`](reviews/) (one file per year)
+- **Settings:** [`config.js`](config.js) · **Reviews:** [`reviews/`](reviews/) (one file per year)
 
 ## Contents
 
@@ -50,7 +50,7 @@ All options (layout, platform filter, limit, fitting options): see the [cred REA
 ## What's here
 
 ```
-config.json           business + product, platforms (Amazon, Etsy: links, ASIN / listing filters, scrape URLs,
+config.js           business + product, platforms (Amazon, Etsy: links, ASIN / listing filters, scrape URLs,
                       reported counts), links, display, strings, schema, avatar palette, summary, reviews.years
 reviews/<year>.json   the reviews dated in that year, newest first (2024-2026)
 images/reviewers/     avatars: <platform>-<platform_review_id>.<ext>
@@ -60,7 +60,7 @@ scripts/              this site's sync tooling (never loaded by the widget)
 .github/workflows/    validate.yml: runs the shared validator on every push
 ```
 
-The record format is documented in [cred: Data repo format](https://github.com/bristweb/cred#data-repo-format). How reviews are obtained (Amazon and Etsy through Apify) lives only in `config.json` / `scripts/`, never on the review objects. Records store everything collected (full names, full text, profile and avatar URLs, product, Vine and verified-purchase flags); the widget abbreviates names and clips text when it renders.
+The record format is documented in [cred: Data repo format](https://github.com/bristweb/cred#data-repo-format). How reviews are obtained (Amazon and Etsy through Apify) lives only in `config.js` / `scripts/`, never on the review objects. Records store everything collected (full names, full text, profile and avatar URLs, product, Vine and verified-purchase flags); the widget abbreviates names and clips text when it renders.
 
 ## Reviews and platforms
 
@@ -69,15 +69,15 @@ The record format is documented in [cred: Data repo format](https://github.com/b
 | Amazon | 12 (every written review) | 4.8 ★ · 20 ratings, 12 with text (79% 5★, 21% 4★) | https://www.amazon.com/product-reviews/B0D2LXC354 (ASIN B0D2LXC354) |
 | Etsy | 1 | 5.0 ★ · 1 review on the listing | https://www.etsy.com/listing/1872977093#reviews |
 
-fastonepro.com links to exactly one product on each marketplace: Amazon ASIN **B0D2LXC354** and Etsy listing **1872977093** in the HeatherWolfeArt shop. It also links to Faire (wholesale; **0** retailer reviews), a "Buy Local" Google Maps link to Jerry's Artarama Knoxville (a stockist; its reviews are about the store, so not collected), Instagram, YouTube, heatherwolfeart.com, a Drive template and the USPTO trademark record. All are in `config.json` (`platforms` and `links`) with what was checked.
+fastonepro.com links to exactly one product on each marketplace: Amazon ASIN **B0D2LXC354** and Etsy listing **1872977093** in the HeatherWolfeArt shop. It also links to Faire (wholesale; **0** retailer reviews), a "Buy Local" Google Maps link to Jerry's Artarama Knoxville (a stockist; its reviews are about the store, so not collected), Instagram, YouTube, heatherwolfeart.com, a Drive template and the USPTO trademark record. All are in `config.js` (`platforms` and `links`) with what was checked.
 
 - **Amazon gap:** Amazon counts 20 ratings, but 8 are star-only with no text. Amazon never lists those individually, so they can't be stored or shown; the widget and JSON-LD use the 12 written reviews (average 4.75, shown as 4.8). These reviewers have Amazon's default silhouette, so their avatars are generated initials. Amazon has no public seller replies. 2 of the 12 are **Amazon Vine** reviews (Daytona S., Joe), flagged `amazon_vine: true`. Amazon cards open the individual review (Amazon may ask visitors to sign in).
 - **Etsy:** the shop has 3 reviews in total; only Merlyn's (2025-10-21) is for the FASTONE listing, so the importer keeps only `listing_ids` [1872977093]. Etsy has no per-review URL (`review_url` is the listing's reviews section). Merlyn's avatar and profile link come from the listing page's review markup (the actor has no avatar field); a new Etsy review gets an initials avatar unless `buyer_avatar_url` / `buyer_profile_url` are added to its item before importing.
-- **Also check from time to time:** the Amazon rating count (if it grew without a new written review, the new ones are star-only), the Faire brand page, and fastonepro.com for new product links (add the ASIN / listing id to `config.json`).
+- **Also check from time to time:** the Amazon rating count (if it grew without a new written review, the new ones are star-only), the Faire brand page, and fastonepro.com for new product links (add the ASIN / listing id to `config.js`).
 
 ## Sync tooling
 
-`scripts/` collects this site's reviews (Python 3, no packages); the widget never loads it. Settings live in `config.json` `platforms`: `scrape_urls` (Amazon product URL, Etsy shop), `asins` / `listing_ids` (import only the FASTONE product), `product_title`, `page_url` (fallback link), and `avatars` (initials colors). How often it runs is up to whoever schedules it.
+`scripts/` collects this site's reviews (Python 3, no packages; Node reads `config.js`); the widget never loads it. Settings live in `config.js` `platforms`: `scrape_urls` (Amazon product URL, Etsy shop), `asins` / `listing_ids` (import only the FASTONE product), `product_title`, `page_url` (fallback link), and `avatars` (initials colors). How often it runs is up to whoever schedules it.
 
 | Platform | Method | Actor | Why |
 |---|---|---|---|
@@ -94,7 +94,7 @@ python3 scripts/pull_reviews.py --print-inputs   # per platform: actor, input wi
 # as a JSON array to the printed path (.pull/amazon.json, .pull/etsy.json)
 python3 scripts/pull_reviews.py --from-raw       # imports NEW reviews only, checks the summary
 node ../cred/scripts/validate.mjs .    # optional local check (the push workflow runs it too)
-git add reviews images/reviewers config.json && git commit -m "reviews: sync $(date +%F)" && git push
+git add reviews images/reviewers config.js && git commit -m "reviews: sync $(date +%F)" && git push
 ```
 
 Other ways to run it: `APIFY_TOKEN=… python3 scripts/pull_reviews.py` calls the Apify REST API itself; `--all` drops the date window (still adds only new reviews); `python3 scripts/import_reviews.py --update --<platform> <file>` refreshes existing records (keeping `collected_at`, avatars and `featured_on_website`). `.pull/` holds raw scraper output and is git-ignored.
