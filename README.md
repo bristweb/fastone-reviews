@@ -20,7 +20,7 @@ Every public review of **[FASTONE® Pro Premades](https://www.fastonepro.com/)**
 fastonepro.com is a Google Sites page, so use the constrained preset there (*Insert → Embed → Embed code*, paste, then stretch the box to full width and about 420px tall):
 
 ```html
-<script src="https://bristweb.github.io/reviews-widget/assets/js/reviews-widget.js"
+<script src="https://bristweb.github.io/reviews-widget/assets/js/cred.js"
         data-source="https://bristweb.github.io/fastone-reviews/"
         data-constrained="true"></script>
 ```
@@ -28,7 +28,7 @@ fastonepro.com is a Google Sites page, so use the constrained preset there (*Ins
 Anywhere else, the plain JavaScript embed sizes itself:
 
 ```html
-<script src="https://bristweb.github.io/reviews-widget/assets/js/reviews-widget.js"
+<script src="https://bristweb.github.io/reviews-widget/assets/js/cred.js"
         data-source="https://bristweb.github.io/fastone-reviews/" defer></script>
 ```
 
